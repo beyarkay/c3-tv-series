@@ -1,31 +1,19 @@
-# Custom Calendar Creator demo project
+# [C3](https://github.com/beyarkay/c3) TV Series: Airing dates in your calendar
 
-See [the main repo](https://github.com/beyarkay/c3) for details
 
-## YAML calendar format
+This project automatically scrapes data from [Rotten
+Tomatoes](https://www.rottentomatoes.com/) about the airing dates of certain TV
+shows, and converts them into an Internet-based calendar. So you can go to the
+[latest
+release](https://github.com/beyarkay/c3-tv-series/releases/tag/latest-calendars)
+and choose a calendar to subscribe to. Once you've subscribed, you'll be able
+to see your favourite TV show in your calendar.
 
-It is expected that the calendar files (by default matching `calendars/*.yaml`)
-have a specific format:
+For example, in this image you can see three different calendars: `HotD` (House
+of the Dragon), `tGD` (The Good Doctor), and `tWL` (The White Lotus). Each
+event in the calendar is the day on which a particular episode for that series
+aired on TV.
 
-1. Each file in `calendars/` will be turned into a single ICS file with the
-   same name but with the extension `.ics`. So `calendars/simple-calendar.yaml`
-   will become `calendars/simple-calendar.ics`. These `.ics` files will then be
-   published.
+![](imgs/example.png)
 
-   If you want multiple calendars, create multiple YAML files.
-
-2. Each `.yaml` file should contain a list under the key `events`. Other keys
-   may be added in the future.
-
-3. Each of the items in the `events` list should be a single event, with
-   different keys and values which will be mapped to single calendar events.
-
-For example, this will create a single calendar with one event:
-
-```yaml
-events:
-  - start: 2022-01-01T08:00:00.0000
-    end: 2022-01-01T10:00:00.0000
-    title: 'Happy new year!',
-    description: 'This event was created by [c3](https://github.com/beyarkay/c3)',
-```
+This project was created using [C3](https://github.com/beyarkay/c3) .
