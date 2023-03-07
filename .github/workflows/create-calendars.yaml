@@ -1,0 +1,55 @@
+# The name of this workflow
+name: My Cool Calendar Creator
+
+# When a push is received to branch `main` that changes `create-calendars.py`,
+# run the workflow. Also allow the workflow to be run manually.
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'create-calendars.py'
+  workflow_dispatch:
+
+jobs:
+  create-calendars:
+    runs-on: ubuntu-latest
+    steps:
+    # First we need to checkout the repository on the machine
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # Setup python and set pip to cache dependencies
+    - name: Setup python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        cache: 'pip' # caching pip dependencies
+
+    # Install libraries via pip from requirements.txt
+    - name: Pip install requirements
+      run: pip install -r requirements.txt
+
+    # Actually run the python script to generate the yaml files
+    - name: Run python script
+      run: python create-calendars.py
+
+    # Convert the yaml files found at `calendars/*.yaml` to calendars
+    - name: Create Cool Calendars
+      uses: beyarkay/c3@main
+      id: CREATE-YAML
+      with:
+        glob: "calendars/*.yaml"
+
+    - name: Update latest release with new calendars
+      uses: beyarkay/update-existing-release@master
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        release: Latest Cool Calendars
+        updateTag: true
+        tag: latest-calendars
+        replace: true
+        files: ${{ steps.CREATE-YAML.outputs.file-paths }}
+        body: "This is an example release showing how you can publish internet
+          calendars that are available via github. Simply copy one of the links
+          to the files below into your calendar app and you'll get all the
+          latest updates as they happen!"
