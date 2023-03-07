@@ -15,7 +15,7 @@ on:
 # These permissions are required for the action to run
 permissions:
   actions: write
-  issues: write
+  issues: none
   checks: write
   contents: write
 
