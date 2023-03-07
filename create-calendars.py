@@ -20,6 +20,9 @@ def main():
         "Invincible": "https://www.rottentomatoes.com/tv/invincible",
         "Arcane": "https://www.rottentomatoes.com/tv/arcane_league_of_legends",
         "Utopia": "https://www.rottentomatoes.com/tv/utopia_2013",
+        "Electric Dreams": "https://www.rottentomatoes.com/tv/philip_k_dick_s_electric_dreams",
+        "Foundation": "https://www.rottentomatoes.com/tv/foundation",
+        "Money Heist": "https://www.rottentomatoes.com/tv/money_heist",
     }
 
     for show, url in shows.items():
