@@ -1,5 +1,5 @@
 # The name of this workflow
-name: My Cool Calendar Creator
+name: Release TV Series episode airing calendars
 
 # When a push is received to branch `main` that changes `create-calendars.py`,
 # run the workflow. Also allow the workflow to be run manually.
@@ -16,7 +16,7 @@ on:
 permissions:
   actions: write
   issues: write
-  checks: none
+  checks: write
   contents: none
   deployments: none
   id-token: none
