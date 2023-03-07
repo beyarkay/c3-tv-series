@@ -15,9 +15,9 @@ on:
 # These permissions are required for the action to run
 permissions:
   actions: write
+  issues: write
   checks: none
   contents: none
-  issues: none
   deployments: none
   id-token: none
   discussions: none
