@@ -9,6 +9,23 @@ on:
     paths:
       - 'create-calendars.py'
   workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'
+
+permissions:
+  actions: write
+  checks: write
+  contents: write
+  issues: write
+  deployments: none
+  id-token: none
+  discussions: none
+  packages: none
+  pages: none
+  pull-requests: none
+  repository-projects: none
+  security-events: none
+  statuses: none
 
 jobs:
   create-calendars:
