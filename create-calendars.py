@@ -23,6 +23,16 @@ def main():
         "Electric Dreams": "https://www.rottentomatoes.com/tv/philip_k_dick_s_electric_dreams",
         "Foundation": "https://www.rottentomatoes.com/tv/foundation",
         "Money Heist": "https://www.rottentomatoes.com/tv/money_heist",
+        "Doctor Who": "https://www.rottentomatoes.com/tv/doctor_who",
+        "The Expanse": "https://www.rottentomatoes.com/tv/the_expanse",
+        "The Good Place": "https://www.rottentomatoes.com/tv/good_place",
+        "Peaky Blinders": "https://www.rottentomatoes.com/tv/peaky_blinders",
+        "Schitts Creek": "https://www.rottentomatoes.com/tv/schitts_creek",
+        "Silicon Valley": "https://www.rottentomatoes.com/tv/silicon_valley",
+        "Black Mirror": "https://www.rottentomatoes.com/tv/black_mirror",
+        "Westworld": "https://www.rottentomatoes.com/tv/westworld",
+        "Love, Death, + Robots": "https://www.rottentomatoes.com/tv/love_death_robots",
+        "Rick and Morty": "https://www.rottentomatoes.com/tv/rick_and_morty",
     }
 
     for show, url in shows.items():
