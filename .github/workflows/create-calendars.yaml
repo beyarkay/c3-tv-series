@@ -12,7 +12,21 @@ on:
   schedule:
     - cron: '0 0 * * *'
 
-permissions: write-all
+# These permissions are required for the action to run
+permissions:
+  actions: write
+  checks: none
+  contents: none
+  issues: none
+  deployments: none
+  id-token: none
+  discussions: none
+  packages: none
+  pages: none
+  pull-requests: none
+  repository-projects: none
+  security-events: none
+  statuses: none
 
 jobs:
   create-calendars:
