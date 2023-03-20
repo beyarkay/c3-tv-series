@@ -31,8 +31,9 @@ def main():
         "Silicon Valley": "https://www.rottentomatoes.com/tv/silicon_valley",
         "Black Mirror": "https://www.rottentomatoes.com/tv/black_mirror",
         "Westworld": "https://www.rottentomatoes.com/tv/westworld",
-        "Love, Death, + Robots": "https://www.rottentomatoes.com/tv/love_death_robots",
+        "Love Death and Robots": "https://www.rottentomatoes.com/tv/love_death_robots",
         "Rick and Morty": "https://www.rottentomatoes.com/tv/rick_and_morty",
+        "Severance": "https://www.rottentomatoes.com/tv/severance",
     }
 
     for show, url in shows.items():
