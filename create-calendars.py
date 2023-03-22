@@ -6,7 +6,6 @@ from bs4 import BeautifulSoup
 
 
 def main():
-
     shows = {
         "The Good Doctor": "https://www.rottentomatoes.com/tv/the_good_doctor",
         "The Last of Us": "https://www.rottentomatoes.com/tv/the_last_of_us",
@@ -37,20 +36,20 @@ def main():
     }
 
     for show, url in shows.items():
-        print(f"Processing show {show}")
         events = []
         soup = BeautifulSoup(requests.get(url).text, "html.parser")
-        season_selector = "season-list-item"
         seasons = [
-            l
-            for l in soup.select("div.panel-body>a")
-            if l.get("data-qa") == "season-link"
+            link for link in soup.select("a") if link.get("data-qa") == "season-link"
         ]
-        season_urls = [
-            f'https://www.rottentomatoes.com{season.get("href")}' for season in seasons
-        ]
+        season_urls = sorted(
+            [
+                f'https://www.rottentomatoes.com{season.get("href")}'
+                for season in seasons
+            ]
+        )
+        print(f"Processing {len(season_urls)} seasons of [{show}]({url})")
         for season_url in season_urls:
-            print(f"  Processing season {season_url.split('/')[-1]}")
+            print(f"  Processing season {season_url.split('/')[-1]} ({season_url})")
             if len(show.split(" ")) == 1:
                 short_name = show
             else:
@@ -62,13 +61,13 @@ def main():
                 season_url,
                 f"{short_name} {short_season}",
             )
-            # print(f"  Found {len(season_events)} events")
+            print(f"  -> {len(season_events)} events")
             events.extend(season_events)
 
-        print(f"Writing {len(events)} events to {show}")
+        print(f"-> Writing {len(events)} events to {show}")
         events_to_disk(events, show.replace(" ", "-").lower())
 
-    print(f"Python script finished")
+    print("Python script finished")
 
 
 def events_to_disk(events, calendar_name):
@@ -90,19 +89,31 @@ def get_season_data(url, short_title):
         # a website is down
         try:
             soup = BeautifulSoup(res.text, "html.parser")
-            episode_selector = "#desktopEpisodeList .episodeItem-body"
-            for episode in soup.select(episode_selector):
-                air_date_selector = ".col-sm-6"
-                air_date = (
-                    episode.select(air_date_selector)[0]
-                    .text.replace("Air date:", "")
-                    .strip()
-                )
+            episode_selector = "li.episodes-list-item>div.episode-wrap"
+            episodes = soup.select(episode_selector)
+            for episode in episodes:
+                # print("    Processing episode")
+                air_dates = [
+                    ad
+                    for ad in episode.select("p")
+                    if ad.get("data-qa") == "episode-air-date"
+                ]
+                air_date = air_dates[0].text.replace("Air date:", "").strip()
                 air_date = datetime.strptime(air_date, "%b %d, %Y")
-                title_selector = ".episodelink-title"
-                title = episode.select(title_selector)[0].text.strip()
-                desc_selector = ".synopsis"
-                desc = episode.select(desc_selector)[0].text.strip()
+
+                titles = [
+                    t
+                    for t in episode.select("a")
+                    if t.get("data-qa") == "episode-title"
+                ]
+                title = titles[0].text.strip()
+
+                descs = [
+                    d
+                    for d in episode.select("p")
+                    if d.get("data-qa") == "episode-synopsis"
+                ]
+                desc = descs[0].text.strip()
                 events.append(
                     {
                         "title": f"{short_title}: {title}",
