@@ -107,6 +107,7 @@ def get_season_data(url, short_title):
                     if t.get("data-qa") == "episode-title"
                 ]
                 title = titles[0].text.strip()
+                episode_url = url + "/" + titles[0].get("href").split("/")[-1]
 
                 descs = [
                     d
@@ -117,7 +118,7 @@ def get_season_data(url, short_title):
                 events.append(
                     {
                         "title": f"{short_title}: {title}",
-                        "description": f"{desc}",
+                        "description": f"{desc}\n---\n{episode_url}",
                         "start": str(air_date)[:-9],
                         "end": str(air_date)[:-9],
                     }
